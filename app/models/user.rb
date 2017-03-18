@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  validates :email, uniqueness: true
+  validates :username, uniqueness: true
 
   def password=(pw)
     self.password_digest = BCrypt::Password.create(pw)

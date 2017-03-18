@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :authenticate_request!
 
   def create
-    user = User.find_by(email: auth_params[:email])
+    user = User.find_by(username: auth_params[:username])
     if user.authenticate(auth_params[:password])
       jwt = Auth.encode(user_id: user.id)
       render json: { auth_token: jwt }
@@ -14,6 +14,6 @@ class SessionsController < ApplicationController
   private
 
     def auth_params
-      params.require(:auth).permit(:email, :password)
+      params.require(:user).permit(:username, :password)
     end
 end
